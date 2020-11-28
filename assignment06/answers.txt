@@ -1,0 +1,16 @@
+Sagi Polaczek
+
+SectionA answers:
+
+** Valid contracts: 
+
+'pop' and 'top'.
+
+
+** Invalid contracts:
+
+'push' - If 'o' is null, then elements satisfies (!isEmpty() & top() == null) which breaks the invariant.
+	   Fix by: @pre o != null
+
+'isEmpty' - If elements have non zero amounts of objects, then elements.size() > 0 thus element.size() != 0 and it returns false, contradiction to the contract.
+	   Fix by: @post @return == true iff elements.size() == 0.
