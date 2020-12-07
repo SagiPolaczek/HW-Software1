@@ -24,10 +24,12 @@ public class MyBufferedWriter implements IBufferedWriter{
 	public void write(String str) throws IOException {
 		char[] currChars = concat(this.charsToWrite, str.toCharArray());
 		int timesToWrite = currChars.length % bufferSize;
-		for (int i = 0; i < timesToWrite; i++) {
-			fWriter.write(Arrays.copyOfRange(currChars, i*bufferSize, (i+1)*bufferSize));
+		while (currChars.length >= bufferSize) {
+			fWriter.write(Arrays.copyOfRange(currChars, 0, bufferSize));
+			currChars = Arrays.copyOfRange(currChars, bufferSize, currChars.length);
+			
 		}
-		this.charsToWrite = Arrays.copyOfRange(currChars, timesToWrite * bufferSize, currChars.length);
+		this.charsToWrite = currChars;
 	}
 	
 	@Override
